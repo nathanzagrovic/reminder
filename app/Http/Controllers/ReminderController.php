@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Reminder;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ReminderController extends Controller
 {
@@ -12,7 +13,9 @@ class ReminderController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Reminders', [
+            'reminders' => auth()->user()->reminders,
+        ]);
     }
 
     /**

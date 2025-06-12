@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReminderController;
 use App\Models\Reminder;
 use Carbon\Carbon;
 use Illuminate\Foundation\Application;
@@ -19,7 +20,7 @@ Route::get('/', function () {
 Route::post('/toggle-complete/{reminder}', function (Reminder $reminder) {
     $reminder->completed_at = $reminder->completed_at ? null : now();
     $reminder->save();
-    return redirect()->route('dashboard');
+    return redirect()->back();
 });
 
 Route::get('/dashboard', function () {
@@ -27,6 +28,8 @@ Route::get('/dashboard', function () {
         'reminders' => auth()->user()->reminders,
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::resource('reminders', ReminderController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
