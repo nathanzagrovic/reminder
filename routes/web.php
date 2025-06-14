@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReminderController;
+use App\Http\Controllers\DashboardController;
 use App\Models\Reminder;
 use Carbon\Carbon;
 use Illuminate\Foundation\Application;
@@ -23,11 +24,9 @@ Route::post('/toggle-complete/{reminder}', function (Reminder $reminder) {
     return redirect()->back();
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard', [
-        'reminders' => auth()->user()->reminders,
-    ]);
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::resource('reminders', ReminderController::class);
 

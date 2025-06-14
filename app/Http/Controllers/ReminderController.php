@@ -5,16 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Reminder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ReminderController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('Reminders', [
-            'reminders' => auth()->user()->reminders,
+        return Inertia::render('Reminders/Index', [
+            'reminders' => auth()->user()->reminders()->latest()->get()
         ]);
     }
 
@@ -23,7 +26,7 @@ class ReminderController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Reminders/Create');
     }
 
     /**
@@ -31,7 +34,16 @@ class ReminderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'notes' => 'nullable|string',
+            'completed_at' => 'nullable|date'
+        ]);
+
+        auth()->user()->reminders()->create($validated);
+
+        return redirect()->route('reminders.index')
+            ->with('success', 'Reminder created successfully.');
     }
 
     /**
@@ -47,7 +59,11 @@ class ReminderController extends Controller
      */
     public function edit(Reminder $reminder)
     {
-        //
+        $this->authorize('update', $reminder);
+
+        return Inertia::render('Reminders/Edit', [
+            'reminder' => $reminder
+        ]);
     }
 
     /**
@@ -55,7 +71,18 @@ class ReminderController extends Controller
      */
     public function update(Request $request, Reminder $reminder)
     {
-        //
+        $this->authorize('update', $reminder);
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'notes' => 'nullable|string',
+            'completed_at' => 'nullable|date'
+        ]);
+
+        $reminder->update($validated);
+
+        return redirect()->route('reminders.index')
+            ->with('success', 'Reminder updated successfully.');
     }
 
     /**
@@ -63,6 +90,11 @@ class ReminderController extends Controller
      */
     public function destroy(Reminder $reminder)
     {
-        //
+        $this->authorize('delete', $reminder);
+
+        $reminder->delete();
+
+        return redirect()->route('reminders.index')
+            ->with('success', 'Reminder deleted successfully.');
     }
 }

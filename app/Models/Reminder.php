@@ -9,6 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reminder extends Model
 {
+    protected $fillable = [
+        'title',
+        'notes',
+        'completed_at'
+    ];
+
     /** @use HasFactory<\Database\Factories\ReminderFactory> */
     use HasFactory;
 
