@@ -20,12 +20,16 @@ const props = defineProps({
 const localTitle = ref(props.title);
 
 const form = useForm({
+    _method: 'PATCH',
     title: props.title
 });
 
 const handleEnter = () => {
     form.title = localTitle.value;
-    form.patch(route('reminders.update', props.id));
+    form.post(route('reminders.update', props.id), {
+        preserveState: true,
+        preserveScroll: true,
+    });
 };
 </script>
 
@@ -40,6 +44,6 @@ const handleEnter = () => {
         </Link>
         <input type="text" v-model="localTitle"
             class="group-hover:underline text-gray-650 border-0 p-0 !outline-none !focus:outline-none focus:ring-0"
-            @keyup.enter="handleEnter">
+            @blur="handleEnter">
     </div>
 </template>
