@@ -1,5 +1,4 @@
 <script setup>
-// TODO: Widgets for dashboard?
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import ReminderStats from '@/Components/ReminderStats.vue';
 import { Head } from '@inertiajs/vue3';

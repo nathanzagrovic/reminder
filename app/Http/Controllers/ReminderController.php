@@ -81,8 +81,7 @@ class ReminderController extends Controller
 
         $reminder->update($validated);
 
-        return redirect()->route('reminders.index')
-            ->with('success', 'Reminder updated successfully.');
+        return Inertia::location(route('reminders.index'));
     }
 
     /**
