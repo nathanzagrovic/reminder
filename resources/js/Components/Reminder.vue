@@ -34,16 +34,22 @@ const handleEnter = () => {
 </script>
 
 <template>
-    <div class="flex gap-2">
-        <Link tabindex="-1" class="flex items-center gap-2" :href="`/toggle-complete/${id}`" method="post" as="button"
-            :preserve-state="false">
-        <div :class="!completed_at ? 'border' : ''"
-            class="w-5 h-5 rounded border-gray-300 bg-white flex items-center text-xs justify-center">
-            <span class="text-lg" v-if="completed_at">✅</span>
+    <div class="flex gap-2 justify-between">
+
+        <div class="flex items-center gap-2">
+            <Link tabindex="-1" class="flex items-center gap-2" :href="`/toggle-complete/${id}`" method="post"
+                as="button" :preserve-state="false">
+            <div :class="!completed_at ? 'border' : ''"
+                class="w-5 h-5 rounded border-gray-300 bg-white flex items-center text-xs justify-center">
+                <span class="text-lg" v-if="completed_at">✅</span>
+            </div>
+            </Link>
+            <input type="text" v-model="localTitle"
+                class="group-hover:underline text-gray-650 border-0 p-0 !outline-none !focus:outline-none focus:ring-0"
+                @blur="handleEnter">
         </div>
-        </Link>
-        <input type="text" v-model="localTitle"
-            class="group-hover:underline text-gray-650 border-0 p-0 !outline-none !focus:outline-none focus:ring-0"
-            @blur="handleEnter">
+
+        <div class="w-6 h-6 flex items-center justify-center text-xs font-bold bg-gray-100 text-gray-400 rounded-full"
+            onclick="alert('Add to category')">i</div>
     </div>
 </template>
