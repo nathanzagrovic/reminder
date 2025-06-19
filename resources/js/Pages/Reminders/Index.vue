@@ -58,7 +58,6 @@ onMounted(() => {
         <div class="py-12">
             <div class="container mx-auto grid grid-cols-6">
                 <div class="col-span-2">
-                    <div v-if="1 > 2">x</div>
                     <RemindersPanel :reminders="reminders" heading="Reminders" />
                 </div>
             </div>
