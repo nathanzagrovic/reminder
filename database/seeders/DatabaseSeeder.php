@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Reminder;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\ReminderGroup;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,7 +19,13 @@ class DatabaseSeeder extends Seeder
             'email' => 'bill@microsoft.com',
         ]);
 
-        Reminder::factory(6)->create();
+        Reminder::factory(6)->create([
+            'user_id' => 1,
+        ]);
+        
+        ReminderGroup::factory(3)->create([
+            'user_id' => 1,
+        ]);
 
     }
 }

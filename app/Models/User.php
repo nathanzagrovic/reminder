@@ -52,4 +52,9 @@ class User extends Authenticatable
         return $this->hasMany(Reminder::class);
     }
 
+    public function boards(): hasMany
+    {
+        return $this->hasMany(Board::class);
+    }
+
 }

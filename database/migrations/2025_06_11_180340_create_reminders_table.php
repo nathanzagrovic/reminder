@@ -14,6 +14,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('notes')->nullable();
             $table->date('completed_at')->nullable();
+            $table->foreignId('board_id')->nullable()->constrained('boards');
             $table->timestamps();
         });
     }

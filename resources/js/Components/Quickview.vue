@@ -47,11 +47,10 @@ const handleGroupChange = (event) => {
                     </li>
                 </ul>
             </div>
+
             <div class="p-6">
-                <span class="text-sm text-gray-500">Select a group to add this reminder to</span>
-            </div>
-            <div class="p-6">
-                <select name="" id="" @change="handleGroupChange">
+                <span class="text-sm text-gray-500 block mb-2">Select a group to add this reminder to</span>
+                <select name="" id="" @change="handleGroupChange" class="w-full border border-gray-300 rounded-md p-2">
                     <option value="">Select a group...</option>
                     <option :disabled="reminder.groups.some(g => g.id === group.id)" v-for="group in groups"
                         :key="group.id" :value="group.id">{{ group.name }}</option>
@@ -62,7 +61,7 @@ const handleGroupChange = (event) => {
 </template>
 
 <style scoped>
-.slide-enter-active {
+/* .slide-enter-active {
     transition: all 0.6s ease-out;
 }
 
@@ -78,5 +77,5 @@ const handleGroupChange = (event) => {
 .slide-leave-to {
     transform: translateX(100%);
     opacity: 0;
-}
+} */
 </style>

@@ -4,11 +4,13 @@ import { Inertia } from '@inertiajs/inertia';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import RemindersPanel from '@/Components/RemindersPanel.vue';
+import BoardsPanel from '@/Components/BoardsPanel.vue';
 import Swal from 'sweetalert2';
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref, computed } from 'vue';
 import Quickview from '@/Components/Quickview.vue';
 
-defineProps({
+
+const props = defineProps({
     reminders: {
         type: Array,
         required: true
@@ -16,11 +18,20 @@ defineProps({
     groups: {
         type: Array,
         required: true
+    },
+    boards: {
+        type: Array,
+        required: true
     }
 });
 
+const selectedReminderId = ref(null);
 
-const page = usePage();
+const selectedReminder = computed(() => {
+    if (!selectedReminderId.value || !props.reminders) return null;
+    return props.reminders.find(reminder => reminder.id === selectedReminderId.value);
+});
+
 
 onMounted(() => {
     const handler = (event) => {
@@ -43,6 +54,10 @@ onMounted(() => {
     });
 });
 
+const handleReminderClick = (reminderId) => {
+    selectedReminderId.value = reminderId;
+};
+
 </script>
 
 <template>
@@ -62,14 +77,14 @@ onMounted(() => {
         </template>
 
         <div class="py-12">
-            <div class="container mx-auto grid grid-cols-6">
-                <div class="col-span-2">
-                    <RemindersPanel :reminders="reminders" heading="Reminders" :groups="groups"
-                        @click="quickview = true" />
-                </div>
+            <div class="container mx-auto grid grid-cols-6 gap-4">
+
+                <BoardsPanel v-for="board in props.boards" :key="board.id" :board="board" :heading="board.name"
+                    @reminder-click="handleReminderClick" />
             </div>
         </div>
 
+        <Quickview v-if="selectedReminderId" :reminder="selectedReminder" :groups="groups" />
 
     </AuthenticatedLayout>
 </template>

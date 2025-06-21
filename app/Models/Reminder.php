@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ReminderGroup;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Reminder extends Model
@@ -30,6 +31,11 @@ class Reminder extends Model
     public function groups(): BelongsToMany
     {
         return $this->belongsToMany(ReminderGroup::class, 'group_reminder');
+    }
+
+    public function board(): BelongsTo
+    {
+        return $this->belongsTo(Board::class);
     }
 
 }
