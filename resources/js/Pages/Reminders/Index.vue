@@ -6,13 +6,19 @@ import { Head } from '@inertiajs/vue3';
 import RemindersPanel from '@/Components/RemindersPanel.vue';
 import Swal from 'sweetalert2';
 import { onMounted, onUnmounted } from 'vue';
+import Quickview from '@/Components/Quickview.vue';
 
 defineProps({
     reminders: {
         type: Array,
         required: true
+    },
+    groups: {
+        type: Array,
+        required: true
     }
 });
+
 
 const page = usePage();
 
@@ -58,7 +64,8 @@ onMounted(() => {
         <div class="py-12">
             <div class="container mx-auto grid grid-cols-6">
                 <div class="col-span-2">
-                    <RemindersPanel :reminders="reminders" heading="Reminders" />
+                    <RemindersPanel :reminders="reminders" heading="Reminders" :groups="groups"
+                        @click="quickview = true" />
                 </div>
             </div>
         </div>

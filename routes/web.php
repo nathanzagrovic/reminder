@@ -28,6 +28,8 @@ Route::middleware(['auth'])->group(function () {
         ->name('dashboard');
 
     Route::resource('reminders', ReminderController::class);
+    Route::post('/reminders/{reminder}/add-to-group', [ReminderController::class, 'addToGroup'])
+        ->name('reminders.add-to-group');
 });
 
 Route::middleware('auth')->group(function () {

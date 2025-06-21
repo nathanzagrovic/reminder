@@ -14,8 +14,14 @@ const props = defineProps({
     completed_at: {
         type: String,
         default: null
+    },
+    groups: {
+        type: Array,
+        default: []
     }
 });
+
+const emit = defineEmits(['reminder-click']);
 
 const localTitle = ref(props.title);
 
@@ -30,6 +36,10 @@ const handleEnter = () => {
         preserveState: true,
         preserveScroll: true,
     });
+};
+
+const handleInfoClick = () => {
+    emit('reminder-click', props.id);
 };
 </script>
 
@@ -50,6 +60,6 @@ const handleEnter = () => {
         </div>
 
         <div class="w-6 h-6 flex items-center justify-center text-xs font-bold bg-gray-100 text-gray-400 rounded-full"
-            onclick="alert('Add to category')">i</div>
+            @click="handleInfoClick">i</div>
     </div>
 </template>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reminder;
+use App\Models\ReminderGroup;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -17,7 +18,13 @@ class ReminderController extends Controller
     public function index()
     {
         return Inertia::render('Reminders/Index', [
-            'reminders' => auth()->user()->reminders()->latest()->get()
+            'reminders' => auth()->user()->reminders()
+                ->select('id', 'title', 'notes', 'completed_at', 'user_id')
+                ->with(['groups' => function($query) {
+                    $query->select('reminder_groups.id', 'reminder_groups.name');
+                }])
+                ->get(),
+            'groups' => ReminderGroup::select('id', 'name')->get(),
         ]);
     }
 
@@ -96,5 +103,11 @@ class ReminderController extends Controller
 
         return redirect()->route('reminders.index')
             ->with('success', 'Reminder deleted successfully.');
+    }
+
+    public function addToGroup(Request $request, Reminder $reminder)
+    {
+        $reminder->groups()->attach($request->group_id);
+        return redirect()->back()->with('success', 'Reminder added to group successfully.');
     }
 }
