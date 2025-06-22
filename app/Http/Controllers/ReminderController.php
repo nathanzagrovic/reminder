@@ -17,16 +17,7 @@ class ReminderController extends Controller
      */
     public function index()
     {
-        
-        // TODO: Tidy up this query
-        
         return Inertia::render('Reminders/Index', [
-            'reminders' => auth()->user()->reminders()
-                ->select('id', 'title', 'notes', 'completed_at', 'user_id')
-                ->with(['groups' => function($query) {
-                    $query->select('reminder_groups.id', 'reminder_groups.name');
-                }])
-                ->get(),
             'boards' => auth()->user()->boards()->with('reminders', 'reminders.groups')->get(),
             'groups' => ReminderGroup::select('id', 'name')->get(),
         ]);

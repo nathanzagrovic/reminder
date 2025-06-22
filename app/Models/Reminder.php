@@ -21,6 +21,15 @@ class Reminder extends Model
     /** @use HasFactory<\Database\Factories\ReminderFactory> */
     use HasFactory;
 
+    protected static function boot()
+    {
+        parent::boot();
+        
+        static::addGlobalScope('order', function ($query) {
+            $query->orderBy('sort', 'asc');
+        });
+    }
+
     protected function completedAt(): Attribute
     {
         return Attribute::get(fn ($value) =>

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('notes')->nullable();
             $table->date('completed_at')->nullable();
             $table->foreignId('board_id')->nullable()->constrained('boards');
+            $table->integer('sort')->default(0);
             $table->timestamps();
         });
     }

@@ -1,5 +1,6 @@
 <script setup>
 import Reminder from "@/Components/Reminder.vue";
+import draggable from 'vuedraggable';
 
 const emit = defineEmits(['reminder-click']);
 
@@ -18,22 +19,23 @@ const test = (reminderId) => {
     emit('reminder-click', reminderId);
 };
 
+const log = (event) => {
+    console.log(event);
+};
+
 </script>
 
 <template>
-    <div :data-board-id="board.id" class="col-span-2">
-        <div class="w-full">
-            <div class="overflow-hidden bg-white p-6 border border-gray- shadow-sm sm:rounded-lg">
-                <h2 class="text-xl font-bold mb-4">📋 {{ heading }}</h2>
-                <ul class="space-y-3" v-if="board.reminders">
-                    <!-- TODO: Make this draggable board to board -->
-                    <li v-for="reminder in board.reminders" :key="reminder.id" class="group cursor-pointer">
-                        <Reminder :id="reminder.id" :title="reminder.title" :completed_at="reminder.completed_at"
-                            :groups="reminder.groups" @reminder-click="test">
-                        </Reminder>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <div :data-board-id="board.id"
+        class="col-span-2 sm:px-6 lg:px-8 bg-white p-6 border border-gray- shadow-sm sm:rounded-lg">
+        <draggable class="dragArea list-group" :list="board.reminders"
+            :group="{ name: 'people', pull: 'clone', put: false }" @dragend="log" item-key="id">
+            <template #item="{ element }">
+                <div class="list-group-item">
+                    <Reminder :id="element.id" :title="element.title" :completed_at="element.completed_at"
+                        :groups="element.groups" @reminder-click="test" />
+                </div>
+            </template>
+        </draggable>
     </div>
 </template>
