@@ -35,15 +35,16 @@ const handleGroupChange = (event) => {
 <template>
     <transition name="slide">
         <div v-if="reminder" class="fixed right-0 inset-y-0 bg-white shadow-xl w-1/3">
-            <div class="p-6">
+            <div class="p-6 pb-1">
                 <span class="2xl:text-3xl text-2xl font-bold">{{ reminder.title }}</span>
                 <div class="text-sm text-gray-500">
                     <span class="text-gray-500"> {{ reminder.completed_at }}</span>
                 </div>
-                <div class="text-sm text-gray-500">xx</div>
+                <div class="text-sm text-gray-500">{{ reminder.notes }}</div>
                 <ul class="mt-4 flex gap-3 flex-wrap cursor-default">
+                    <!-- TODO: Add delete icon / functionality -->
                     <li v-for="group in reminder.groups" :key="group.id">
-                        <span class="text-sm text-gray-500 border p-3 rounded-md">{{ group.name }}</span>
+                        <span class="text-xs text-gray-500 border p-2 rounded-md">{{ group.name }}</span>
                     </li>
                 </ul>
             </div>

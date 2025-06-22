@@ -62,7 +62,7 @@ const submit = () => {
         </div>
 
 
-        <!-- TODO: Add boards and groups -->
+        <!-- TODO: Add boards and groups in request -->
 
         <div>
             <label for="board" class="block text-sm font-medium text-gray-700">Board</label>
