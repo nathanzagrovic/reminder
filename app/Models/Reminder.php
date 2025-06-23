@@ -15,7 +15,8 @@ class Reminder extends Model
     protected $fillable = [
         'title',
         'notes',
-        'completed_at'
+        'completed_at',
+        'sort'
     ];
 
     /** @use HasFactory<\Database\Factories\ReminderFactory> */

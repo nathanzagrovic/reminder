@@ -42,9 +42,6 @@ const handleInfoClick = () => {
     emit('reminder-click', props.id);
 };
 
-const handleDragEnd = () => {
-    console.log('drag end');
-};
 </script>
 
 <template>
@@ -61,7 +58,7 @@ const handleDragEnd = () => {
                 </Link>
                 <input type="text" v-model="localTitle"
                     class="group-hover:underline text-gray-650 border-0 p-0 !outline-none !focus:outline-none focus:ring-0"
-                    @keyup.enter="handleEnter" @dragend="handleDragEnd">
+                    @keyup.enter="handleEnter">
             </div>
 
             <div class="w-6 h-6 flex items-center justify-center text-xs font-bold bg-gray-100 text-gray-400 rounded-full"

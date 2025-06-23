@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReminderController;
+use App\Http\Controllers\BoardController;
 use App\Http\Controllers\DashboardController;
 use App\Models\Reminder;
 use Illuminate\Foundation\Application;
@@ -30,6 +31,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('reminders', ReminderController::class);
     Route::post('/reminders/{reminder}/add-to-group', [ReminderController::class, 'addToGroup'])
         ->name('reminders.add-to-group');
+    
+    Route::resource('boards', BoardController::class);
 });
 
 Route::middleware('auth')->group(function () {

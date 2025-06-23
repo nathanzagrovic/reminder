@@ -3,7 +3,6 @@ import { Link, usePage } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import RemindersPanel from '@/Components/RemindersPanel.vue';
 import BoardsPanel from '@/Components/BoardsPanel.vue';
 import Swal from 'sweetalert2';
 import { onMounted, onUnmounted, ref, computed } from 'vue';

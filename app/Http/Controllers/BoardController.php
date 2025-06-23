@@ -52,7 +52,20 @@ class BoardController extends Controller
      */
     public function update(Request $request, Board $board)
     {
-        //
+        $request->validate([
+            'reminders' => 'required|array',
+            'reminders.*.id' => 'required|exists:reminders,id',
+            'reminders.*.sort' => 'required|integer|min:0',
+        ]);
+
+        foreach ($request->reminders as $reminderData) {
+            $reminder = $board->reminders()->find($reminderData['id']);
+            if ($reminder) {
+                $reminder->update(['sort' => $reminderData['sort']]);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Board updated successfully');
     }
 
     /**
