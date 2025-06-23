@@ -16,12 +16,8 @@ const props = defineProps({
     }
 });
 
-const test = (reminderId) => {
+const emitReminderClick = (reminderId) => {
     emit('reminder-click', reminderId);
-};
-
-const log = (event) => {
-    console.log(event);
 };
 
 function onDragEnd() {
@@ -53,7 +49,7 @@ function onDragEnd() {
                 <div
                     class="list-group-item border border-gray-200 rounded-md p-3 bg-white cursor-grab hover:bg-gray-50">
                     <Reminder :id="element.id" :title="element.title" :completed_at="element.completed_at"
-                        :groups="element.groups" @reminder-click="test" />
+                        :groups="element.groups" @reminder-click="emitReminderClick" />
                 </div>
             </template>
         </draggable>
