@@ -16,7 +16,8 @@ class Reminder extends Model
         'title',
         'notes',
         'completed_at',
-        'sort'
+        'sort',
+        'board_id'
     ];
 
     /** @use HasFactory<\Database\Factories\ReminderFactory> */
@@ -48,4 +49,8 @@ class Reminder extends Model
         return $this->belongsTo(Board::class);
     }
 
+    public function scopeOnBoard($query, $boardId)
+    {
+        return $query->where('board_id', $boardId);
+    }
 }

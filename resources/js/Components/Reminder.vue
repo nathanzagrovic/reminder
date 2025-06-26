@@ -18,6 +18,10 @@ const props = defineProps({
     groups: {
         type: Array,
         default: []
+    },
+    board_id: {
+        type: Number,
+        required: true
     }
 });
 

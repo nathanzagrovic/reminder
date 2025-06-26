@@ -77,9 +77,11 @@ class ReminderController extends Controller
         $this->authorize('update', $reminder);
 
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'notes' => 'nullable|string',
-            'completed_at' => 'nullable|date'
+            'title' => 'sometimes|string|max:255',
+            'notes' => 'sometimes|string',
+            'completed_at' => 'sometimes|date',
+            'board_id' => 'sometimes|exists:boards,id',
+            'id' => 'sometimes|exists:reminders,id',
         ]);
 
         $reminder->update($validated);
